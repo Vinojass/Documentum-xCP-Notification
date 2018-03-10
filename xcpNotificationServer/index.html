@@ -1,0 +1,32 @@
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    function notifyMe(title, body) {
+        if (Notification.permission !== "granted")
+            Notification.requestPermission();
+        else {
+            var notification = new Notification(title, {
+                icon: 'http://cdn.sstatic.net/stackexchange/img/logos/so/so-icon.png',
+                body: body
+            });
+
+            notification.onclick = function () {
+                window.open('http://vino:8080/Fathom');
+            };
+
+        }
+
+    }
+
+    var socket = io();
+    socket.on('message', function (data) {
+        document.write(data)
+    });
+    var callMe = function () {
+        socket.emit('getMyNotification');
+    };
+    socket.on('receiveYourNotification', x => {
+        console.log(x);
+        notifyMe(x.message, x.userName + '<br>' + x.message + '<br>' + x.dateReceived);
+    })
+</script>
+<input type="button" value="click me" onclick="callMe();">

@@ -1,0 +1,20 @@
+{
+    "name": "xCP Notification",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Notification will be received from your case management system..!",
+    "browser_action": {
+        "default_icon": "xcp.png"
+    },
+    "permissions": [
+        "activeTab",
+        "storage",
+        "notifications"
+    ],
+    "web_accessible_resources": [
+        "xcp.png"
+    ],
+    "background": {
+        "scripts": ["socket.io.js", "background.js"]
+    }
+}
